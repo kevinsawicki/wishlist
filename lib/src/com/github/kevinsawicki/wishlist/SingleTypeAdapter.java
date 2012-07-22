@@ -204,7 +204,9 @@ public abstract class SingleTypeAdapter<V> extends BaseAdapter {
   protected abstract void update(int position, View view, V item);
 
   /**
-   * Initialize view
+   * Initialize view by binding indexed child views to tags on the root view
+   * <p>
+   * Sub-classes may override this method but must call super
    *
    * @param view
    * @return view
