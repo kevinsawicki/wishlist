@@ -98,4 +98,17 @@ public class ViewFinder {
       }
     });
   }
+
+  /**
+   * Set drawable on child image view
+   *
+   * @param id
+   * @param drawable
+   * @return image view
+   */
+  public ImageView setDrawable(final int id, final int drawable) {
+    ImageView image = (ImageView) view.findViewById(id);
+    image.setImageDrawable(image.getResources().getDrawable(drawable));
+    return image;
+  }
 }
