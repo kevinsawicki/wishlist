@@ -20,6 +20,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.Collection;
 
@@ -39,6 +41,11 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
   private final int[] children;
 
   private Object[] items;
+
+  /**
+   * Current view being updated
+   */
+  protected View view;
 
   /**
    * Create adapter
@@ -77,6 +84,69 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
     if (childIds == null)
       childIds = new int[0];
     children = childIds;
+  }
+
+  /**
+   * Get text view with given id
+   *
+   * @param childViewId
+   * @return text view
+   */
+  protected TextView textView(final int childViewId) {
+    return super.textView(view, childViewId);
+  }
+
+  /**
+   * Get image view with given id
+   *
+   * @param childViewId
+   * @return image view
+   */
+  protected ImageView imageView(final int childViewId) {
+    return super.imageView(view, childViewId);
+  }
+
+  /**
+   * Get view with given id
+   *
+   * @param childViewId
+   * @return view
+   */
+  protected View view(final int childViewId) {
+    return super.view(view, childViewId);
+  }
+
+  /**
+   * Set text on text view with given id
+   *
+   * @param childViewId
+   * @param text
+   * @return text view
+   */
+  protected TextView setText(final int childViewId, final CharSequence text) {
+    return super.setText(view, childViewId, text);
+  }
+
+  /**
+   * Get child view
+   *
+   * @param childViewId
+   * @param childViewClass
+   * @return child view
+   */
+  protected <T> T getView(final int childViewId, final Class<T> childViewClass) {
+    return super.getView(view, childViewId, childViewClass);
+  }
+
+  /**
+   * Set child view as gone or visible
+   *
+   * @param childViewId
+   * @param gone
+   * @return child view
+   */
+  protected View setGone(final int childViewId, boolean gone) {
+    return super.setGone(view, childViewId, gone);
   }
 
   /**
@@ -143,7 +213,18 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
    * @param view
    * @param item
    */
-  protected abstract void update(int position, View view, V item);
+  protected void update(int position, View view, V item) {
+    this.view = view;
+    update(position, item);
+  }
+
+  /**
+   * Update item
+   *
+   * @param position
+   * @param item
+   */
+  protected abstract void update(int position, V item);
 
   @Override
   public View getView(final int position, View convertView,
