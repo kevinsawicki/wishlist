@@ -106,20 +106,6 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
   }
 
   /**
-   * Get child view
-   *
-   * @param parentView
-   * @param childViewId
-   * @param childViewClass
-   * @return child view
-   */
-  @SuppressWarnings("unchecked")
-  protected <T> T getView(final View parentView, final int childViewId,
-      final Class<T> childViewClass) {
-    return (T) parentView.getTag(childViewId);
-  }
-
-  /**
    * Get child view ids to store
    *
    * @return ids

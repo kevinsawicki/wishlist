@@ -74,6 +74,20 @@ public abstract class TypeAdapter extends BaseAdapter {
   }
 
   /**
+   * Get child view
+   *
+   * @param parentView
+   * @param childViewId
+   * @param childViewClass
+   * @return child view
+   */
+  @SuppressWarnings("unchecked")
+  protected <T> T getView(final View parentView, final int childViewId,
+      final Class<T> childViewClass) {
+    return (T) parentView.getTag(childViewId);
+  }
+
+  /**
    * Create array with given base ids and additional ids
    *
    * @param base
@@ -107,5 +121,4 @@ public abstract class TypeAdapter extends BaseAdapter {
     }
     return view;
   }
-
 }
