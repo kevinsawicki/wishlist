@@ -20,16 +20,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * Adapter for lists where only a single view type is used
  *
  * @param <V>
  */
-public abstract class SingleTypeAdapter<V> extends BaseAdapter {
+public abstract class SingleTypeAdapter<V> extends TypeAdapter {
 
   private static final Object[] EMPTY = new Object[0];
 
@@ -123,76 +120,21 @@ public abstract class SingleTypeAdapter<V> extends BaseAdapter {
   }
 
   /**
-   * Get text view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @return text view
-   */
-  protected TextView textView(final View parentView, final int childViewId) {
-    return (TextView) parentView.getTag(childViewId);
-  }
-
-  /**
-   * Get image view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @return image view
-   */
-  protected ImageView imageView(final View parentView, final int childViewId) {
-    return (ImageView) parentView.getTag(childViewId);
-  }
-
-  /**
-   * Get view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @return view
-   */
-  protected View view(final View parentView, final int childViewId) {
-    return (View) parentView.getTag(childViewId);
-  }
-
-  /**
-   * Set text on text view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @param text
-   * @return text view
-   */
-  protected TextView setText(final View parentView, final int childViewId,
-      final CharSequence text) {
-    final TextView textView = textView(parentView, childViewId);
-    textView.setText(text);
-    return textView;
-  }
-
-  /**
-   * Create array with given base ids and additional ids
-   *
-   * @param base
-   * @param ids
-   * @return extended array
-   */
-  protected int[] join(final int[] base, final int... ids) {
-    if (ids == null || ids.length == 0)
-      return base;
-
-    final int[] extended = new int[base.length + ids.length];
-    System.arraycopy(base, 0, extended, 0, base.length);
-    System.arraycopy(ids, 0, extended, base.length, ids.length);
-    return extended;
-  }
-
-  /**
    * Get child view ids to store
    *
    * @return ids
    */
   protected abstract int[] getChildViewIds();
+
+  /**
+   * Initialize view
+   *
+   * @param view
+   * @return view
+   */
+  protected View initialize(final View view) {
+    return super.initialize(view, children);
+  }
 
   /**
    * Update view for item
@@ -202,23 +144,6 @@ public abstract class SingleTypeAdapter<V> extends BaseAdapter {
    * @param item
    */
   protected abstract void update(int position, View view, V item);
-
-  /**
-   * Initialize view by binding indexed child views to tags on the root view
-   * <p>
-   * Sub-classes may override this method but must call super
-   *
-   * @param view
-   * @return view
-   */
-  protected View initialize(final View view) {
-    for (int id : children) {
-      View child = view.findViewById(id);
-      if (child != null)
-        view.setTag(id, child);
-    }
-    return view;
-  }
 
   @Override
   public View getView(final int position, View convertView,
