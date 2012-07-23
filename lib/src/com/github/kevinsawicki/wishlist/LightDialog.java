@@ -67,8 +67,35 @@ public class LightDialog extends AlertDialog {
   public static LightDialog create(Context context, int title, int message) {
     LightDialog dialog = create(context);
     dialog.setTitle(title);
-    dialog.setMessage(context.getResources().getString(message));
+    dialog.setMessage(context.getString(message));
     return dialog;
+  }
+
+  /**
+   * Create light dialog with title and message
+   *
+   * @param context
+   * @param title
+   * @param message
+   * @return alert dialog
+   */
+  public static LightDialog create(Context context, int title, String message) {
+    LightDialog dialog = create(context);
+    dialog.setTitle(title);
+    dialog.setMessage(message);
+    return dialog;
+  }
+
+  /**
+   * Create light dialog with title and message
+   *
+   * @param context
+   * @param title
+   * @param message
+   * @return alert dialog
+   */
+  public static LightDialog create(Context context, String title, int message) {
+    return create(context, title, context.getString(message));
   }
 
   /**
@@ -84,5 +111,29 @@ public class LightDialog extends AlertDialog {
    */
   protected LightDialog(Context context, int theme) {
     super(context, theme);
+  }
+
+  /**
+   * Set positive button
+   *
+   * @param text
+   * @param listener
+   * @return this dialog
+   */
+  public LightDialog setPositiveButton(int text, OnClickListener listener) {
+    setButton(BUTTON_POSITIVE, getContext().getString(text), listener);
+    return this;
+  }
+
+  /**
+   * Set positive button
+   *
+   * @param text
+   * @param listener
+   * @return this dialog
+   */
+  public LightDialog setNegativeButton(int text, OnClickListener listener) {
+    setButton(BUTTON_NEGATIVE, getContext().getString(text), listener);
+    return this;
   }
 }
