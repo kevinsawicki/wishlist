@@ -21,6 +21,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.Collection;
+
 /**
  * Adapter for lists where only a single view type is used
  *
@@ -75,6 +77,18 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
     if (childIds == null)
       childIds = new int[0];
     children = childIds;
+  }
+
+  /**
+   * Set items to display
+   *
+   * @param items
+   */
+  public void setItems(Collection<?> items) {
+    if (items != null && !items.isEmpty())
+      setItems(items.toArray());
+    else
+      setItems(EMPTY);
   }
 
   /**
