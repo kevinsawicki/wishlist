@@ -88,6 +88,19 @@ public abstract class TypeAdapter extends BaseAdapter {
   }
 
   /**
+   * Set child view as gone or visible
+   *
+   * @param parentView
+   * @param childViewId
+   * @param gone
+   * @return child view
+   */
+  protected View setGone(final View parentView, final int childViewId,
+      boolean gone) {
+    return ViewUtils.setGone(view(parentView, childViewId), gone);
+  }
+
+  /**
    * Create array with given base ids and additional ids
    *
    * @param base
