@@ -29,7 +29,6 @@ import java.util.List;
 
 /**
  * Adapter for lists where only multiple view types are needed
- *
  */
 public abstract class MultiTypeAdapter extends TypeAdapter {
 
