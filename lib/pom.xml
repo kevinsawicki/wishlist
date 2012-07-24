@@ -3,10 +3,45 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
 	<groupId>com.github.kevinsawicki</groupId>
 	<artifactId>wishlist</artifactId>
 	<version>0.1-SNAPSHOT</version>
 	<packaging>apklib</packaging>
+	<name>wishlist</name>
+	<description>Android utilities</description>
+	<inceptionYear>2012</inceptionYear>
+	<url>http://github.com/kevinsawicki/wishlist</url>
+
+	<scm>
+		<url>https://github.com/kevinsawicki/wishlist</url>
+		<connection>scm:git:git://github.com/kevinsawicki/wishlist.git</connection>
+		<developerConnection>scm:git:git@github.com:kevinsawicki/wishlist.git</developerConnection>
+	</scm>
+
+	<developers>
+		<developer>
+			<email>kevinsawicki@gmail.com</email>
+			<name>Kevin Sawicki</name>
+			<url>https://github.com/kevinsawicki</url>
+			<id>kevinsawicki</id>
+		</developer>
+	</developers>
+
+
+	<issueManagement>
+		<url>https://github.com/kevinsawicki/wishlist/issues</url>
+		<system>GitHub Issues</system>
+	</issueManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
 	<dependencies>
 		<dependency>
