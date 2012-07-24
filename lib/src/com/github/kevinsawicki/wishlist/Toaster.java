@@ -33,7 +33,7 @@ public class Toaster {
     if (activity == null)
       return;
 
-    final Context context = activity.getApplicationContext();
+    final Context context = activity.getApplication();
     activity.runOnUiThread(new Runnable() {
 
       public void run() {
@@ -49,7 +49,7 @@ public class Toaster {
     if (TextUtils.isEmpty(message))
       return;
 
-    final Context context = activity.getApplicationContext();
+    final Context context = activity.getApplication();
     activity.runOnUiThread(new Runnable() {
 
       public void run() {
