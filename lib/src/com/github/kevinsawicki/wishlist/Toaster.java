@@ -18,6 +18,7 @@ package com.github.kevinsawicki.wishlist;
 import static android.widget.Toast.LENGTH_LONG;
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import java.text.MessageFormat;
@@ -27,105 +28,131 @@ import java.text.MessageFormat;
  */
 public class Toaster {
 
-	private static void show(final Activity activity, final int resId,
-			final int duration) {
-		Context context = activity.getApplicationContext();
-		Toast.makeText(context, resId, duration).show();
-	}
+  private static void show(final Activity activity, final int resId,
+      final int duration) {
+    if (activity == null)
+      return;
 
-	private static void show(final Activity activity, final String message,
-			final int duration) {
-		Context context = activity.getApplicationContext();
-		Toast.makeText(context, message, duration).show();
-	}
+    final Context context = activity.getApplicationContext();
+    activity.runOnUiThread(new Runnable() {
 
-	/**
-	 * Show message in {@link Toast} with {@link Toast#LENGTH_LONG} duration
-	 *
-	 * @param activity
-	 * @param resId
-	 */
-	public static void showLong(Activity activity, int resId) {
-		show(activity, resId, LENGTH_LONG);
-	}
+      public void run() {
+        Toast.makeText(context, resId, duration).show();
+      }
+    });
+  }
 
-	/**
-	 * Show message in {@link Toast} with {@link Toast#LENGTH_SHORT} duration
-	 *
-	 * @param activity
-	 * @param resId
-	 */
-	public static void showShort(Activity activity, int resId) {
-		show(activity, resId, LENGTH_LONG);
-	}
+  private static void show(final Activity activity, final String message,
+      final int duration) {
+    if (activity == null)
+      return;
+    if (TextUtils.isEmpty(message))
+      return;
 
-	/**
-	 * Show message in {@link Toast} with {@link Toast#LENGTH_LONG} duration
-	 *
-	 * @param activity
-	 * @param message
-	 */
-	public static void showLong(Activity activity, String message) {
-		show(activity, message, LENGTH_LONG);
-	}
+    final Context context = activity.getApplicationContext();
+    activity.runOnUiThread(new Runnable() {
 
-	/**
-	 * Show message in {@link Toast} with {@link Toast#LENGTH_SHORT} duration
-	 *
-	 * @param activity
-	 * @param message
-	 */
-	public static void showShort(Activity activity, String message) {
-		show(activity, message, LENGTH_LONG);
-	}
+      public void run() {
+        Toast.makeText(context, message, duration).show();
+      }
+    });
+  }
 
-	/**
-	 * Show message in {@link Toast} with {@link Toast#LENGTH_LONG} duration
-	 *
-	 * @param activity
-	 * @param message
-	 * @param args
-	 */
-	public static void showLong(Activity activity, String message,
-			Object... args) {
-		String formatted = MessageFormat.format(message, args);
-		show(activity, formatted, LENGTH_LONG);
-	}
+  /**
+   * Show message in {@link Toast} with {@link Toast#LENGTH_LONG} duration
+   *
+   * @param activity
+   * @param resId
+   */
+  public static void showLong(final Activity activity, int resId) {
+    show(activity, resId, LENGTH_LONG);
+  }
 
-	/**
-	 * Show message in {@link Toast} with {@link Toast#LENGTH_SHORT} duration
-	 *
-	 * @param activity
-	 * @param message
-	 * @param args
-	 */
-	public static void showShort(Activity activity, String message,
-			Object... args) {
-		String formatted = MessageFormat.format(message, args);
-		show(activity, formatted, LENGTH_LONG);
-	}
+  /**
+   * Show message in {@link Toast} with {@link Toast#LENGTH_SHORT} duration
+   *
+   * @param activity
+   * @param resId
+   */
+  public static void showShort(final Activity activity, final int resId) {
+    show(activity, resId, LENGTH_LONG);
+  }
 
-	/**
-	 * Show message in {@link Toast} with {@link Toast#LENGTH_LONG} duration
-	 *
-	 * @param activity
-	 * @param resId
-	 * @param args
-	 */
-	public static void showLong(Activity activity, int resId, Object... args) {
-		String message = activity.getString(resId);
-		showLong(activity, message, args);
-	}
+  /**
+   * Show message in {@link Toast} with {@link Toast#LENGTH_LONG} duration
+   *
+   * @param activity
+   * @param message
+   */
+  public static void showLong(final Activity activity, final String message) {
+    show(activity, message, LENGTH_LONG);
+  }
 
-	/**
-	 * Show message in {@link Toast} with {@link Toast#LENGTH_SHORT} duration
-	 *
-	 * @param activity
-	 * @param resId
-	 * @param args
-	 */
-	public static void showShort(Activity activity, int resId, Object... args) {
-		String message = activity.getString(resId);
-		showShort(activity, message, args);
-	}
+  /**
+   * Show message in {@link Toast} with {@link Toast#LENGTH_SHORT} duration
+   *
+   * @param activity
+   * @param message
+   */
+  public static void showShort(final Activity activity, final String message) {
+    show(activity, message, LENGTH_LONG);
+  }
+
+  /**
+   * Show message in {@link Toast} with {@link Toast#LENGTH_LONG} duration
+   *
+   * @param activity
+   * @param message
+   * @param args
+   */
+  public static void showLong(final Activity activity, final String message,
+      final Object... args) {
+    String formatted = MessageFormat.format(message, args);
+    show(activity, formatted, LENGTH_LONG);
+  }
+
+  /**
+   * Show message in {@link Toast} with {@link Toast#LENGTH_SHORT} duration
+   *
+   * @param activity
+   * @param message
+   * @param args
+   */
+  public static void showShort(final Activity activity, final String message,
+      final Object... args) {
+    String formatted = MessageFormat.format(message, args);
+    show(activity, formatted, LENGTH_LONG);
+  }
+
+  /**
+   * Show message in {@link Toast} with {@link Toast#LENGTH_LONG} duration
+   *
+   * @param activity
+   * @param resId
+   * @param args
+   */
+  public static void showLong(final Activity activity, final int resId,
+      final Object... args) {
+    if (activity == null)
+      return;
+
+    String message = activity.getString(resId);
+    showLong(activity, message, args);
+  }
+
+  /**
+   * Show message in {@link Toast} with {@link Toast#LENGTH_SHORT} duration
+   *
+   * @param activity
+   * @param resId
+   * @param args
+   */
+  public static void showShort(final Activity activity, final int resId,
+      final Object... args) {
+    if (activity == null)
+      return;
+
+    String message = activity.getString(resId);
+    showShort(activity, message, args);
+  }
 }
