@@ -66,10 +66,10 @@ public abstract class SectionMultiTypeAdapter extends MultiTypeAdapter
    * @return this adapter
    */
   public SectionMultiTypeAdapter addItems(final int sectionType,
-      final Object section, final int itemType, final Object... items) {
+      final Object section, final int itemType, final Object[] items) {
     sections.add(section, section).add(section, items);
 
-    super.addItems(sectionType, section);
+    super.addItem(sectionType, section);
     super.addItems(itemType, items);
 
     return this;

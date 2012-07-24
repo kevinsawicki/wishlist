@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -95,14 +96,49 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
   }
 
   /**
+   * Add item to adapter registered as the given type
+   *
+   * @param type
+   * @param item
+   * @return this adapter
+   */
+  public MultiTypeAdapter addItem(int type, Object item) {
+    types.put(items.size(), type);
+    items.add(item);
+
+    notifyDataSetChanged();
+    return this;
+  }
+
+  /**
    * Add items to adapter registered as the given type
    *
    * @param type
    * @param items
    * @return this adapter
    */
-  public MultiTypeAdapter addItems(int type, Object... items) {
+  public MultiTypeAdapter addItems(int type, Object[] items) {
     if (items == null || items.length == 0)
+      return this;
+
+    for (Object item : items) {
+      types.put(this.items.size(), type);
+      this.items.add(item);
+    }
+
+    notifyDataSetChanged();
+    return this;
+  }
+
+  /**
+   * Add items to adapter registered as the given type
+   *
+   * @param type
+   * @param items
+   * @return this adapter
+   */
+  public MultiTypeAdapter addItems(int type, Collection<?> items) {
+    if (items == null || items.isEmpty())
       return this;
 
     for (Object item : items) {
@@ -168,7 +204,19 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * @param item
    * @param type
    */
-  protected abstract void update(int position, View view, Object item, int type);
+  protected void update(int position, View view, Object item, int type) {
+    this.view = view;
+    update(position, item, type);
+  }
+
+  /**
+   * Update view for item
+   *
+   * @param position
+   * @param item
+   * @param type
+   */
+  protected abstract void update(int position, Object item, int type);
 
   public View getView(int position, View convertView, ViewGroup parent) {
     int type = getItemViewType(position);

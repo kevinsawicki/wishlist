@@ -26,6 +26,11 @@ import android.widget.TextView;
 public abstract class TypeAdapter extends BaseAdapter {
 
   /**
+   * View being updated
+   */
+  protected View view;
+
+  /**
    * Get text view with given id
    *
    * @param parentView
@@ -133,5 +138,68 @@ public abstract class TypeAdapter extends BaseAdapter {
         view.setTag(id, child);
     }
     return view;
+  }
+
+  /**
+   * Get text view with given id
+   *
+   * @param childViewId
+   * @return text view
+   */
+  protected TextView textView(final int childViewId) {
+    return textView(view, childViewId);
+  }
+
+  /**
+   * Get image view with given id
+   *
+   * @param childViewId
+   * @return image view
+   */
+  protected ImageView imageView(final int childViewId) {
+    return imageView(view, childViewId);
+  }
+
+  /**
+   * Get view with given id
+   *
+   * @param childViewId
+   * @return view
+   */
+  protected View view(final int childViewId) {
+    return view(view, childViewId);
+  }
+
+  /**
+   * Set text on text view with given id
+   *
+   * @param childViewId
+   * @param text
+   * @return text view
+   */
+  protected TextView setText(final int childViewId, final CharSequence text) {
+    return setText(view, childViewId, text);
+  }
+
+  /**
+   * Get child view
+   *
+   * @param childViewId
+   * @param childViewClass
+   * @return child view
+   */
+  protected <T> T getView(final int childViewId, final Class<T> childViewClass) {
+    return getView(view, childViewId, childViewClass);
+  }
+
+  /**
+   * Set child view as gone or visible
+   *
+   * @param childViewId
+   * @param gone
+   * @return child view
+   */
+  protected View setGone(final int childViewId, boolean gone) {
+    return setGone(view, childViewId, gone);
   }
 }
