@@ -33,6 +33,13 @@
 		</developer>
 	</developers>
 
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<issueManagement>
 		<url>https://github.com/kevinsawicki/wishlist/issues</url>
