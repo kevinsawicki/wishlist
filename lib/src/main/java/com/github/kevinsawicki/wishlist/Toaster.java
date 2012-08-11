@@ -16,6 +16,7 @@
 package com.github.kevinsawicki.wishlist;
 
 import static android.widget.Toast.LENGTH_LONG;
+import static android.widget.Toast.LENGTH_SHORT;
 import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
@@ -75,7 +76,7 @@ public class Toaster {
    * @param resId
    */
   public static void showShort(final Activity activity, final int resId) {
-    show(activity, resId, LENGTH_LONG);
+    show(activity, resId, LENGTH_SHORT);
   }
 
   /**
@@ -95,7 +96,7 @@ public class Toaster {
    * @param message
    */
   public static void showShort(final Activity activity, final String message) {
-    show(activity, message, LENGTH_LONG);
+    show(activity, message, LENGTH_SHORT);
   }
 
   /**
@@ -121,7 +122,7 @@ public class Toaster {
   public static void showShort(final Activity activity, final String message,
       final Object... args) {
     String formatted = MessageFormat.format(message, args);
-    show(activity, formatted, LENGTH_LONG);
+    show(activity, formatted, LENGTH_SHORT);
   }
 
   /**
