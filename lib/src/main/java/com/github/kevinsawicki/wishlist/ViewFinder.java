@@ -37,6 +37,17 @@ public class ViewFinder {
   }
 
   /**
+   * Find view with id
+   *
+   * @param id
+   * @return found view
+   */
+  @SuppressWarnings("unchecked")
+  public <V extends View> V find(final int id) {
+    return (V) view.findViewById(id);
+  }
+
+  /**
    * Get image view with id
    *
    * @param id
@@ -54,7 +65,7 @@ public class ViewFinder {
    * @return text view
    */
   public TextView setText(final int id, final String content) {
-    final TextView text = (TextView) view.findViewById(id);
+    final TextView text = find(id);
     text.setText(content);
     return text;
   }
@@ -107,7 +118,7 @@ public class ViewFinder {
    * @return image view
    */
   public ImageView setDrawable(final int id, final int drawable) {
-    ImageView image = (ImageView) view.findViewById(id);
+    ImageView image = imageView(id);
     image.setImageDrawable(image.getResources().getDrawable(drawable));
     return image;
   }
