@@ -15,8 +15,11 @@
  */
 package com.github.kevinsawicki.wishlist;
 
+import android.app.Activity;
+import android.content.res.Resources;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,7 +28,48 @@ import android.widget.TextView;
  */
 public class ViewFinder {
 
-  private final View view;
+  private static interface FindWrapper {
+
+    View findViewById(int id);
+
+    Resources getResources();
+  }
+
+  private static class WindowWrapper implements FindWrapper {
+
+    private final Window window;
+
+    WindowWrapper(final Window window) {
+      this.window = window;
+    }
+
+    public View findViewById(final int id) {
+      return window.findViewById(id);
+    }
+
+    public Resources getResources() {
+      return window.getContext().getResources();
+    }
+  }
+
+  private static class ViewWrapper implements FindWrapper {
+
+    private final View view;
+
+    ViewWrapper(final View view) {
+      this.view = view;
+    }
+
+    public View findViewById(final int id) {
+      return view.findViewById(id);
+    }
+
+    public Resources getResources() {
+      return view.getResources();
+    }
+  }
+
+  private final FindWrapper wrapper;
 
   /**
    * Create finder wrapping given view
@@ -33,7 +77,25 @@ public class ViewFinder {
    * @param view
    */
   public ViewFinder(final View view) {
-    this.view = view;
+    wrapper = new ViewWrapper(view);
+  }
+
+  /**
+   * Create finder wrapping given window
+   *
+   * @param window
+   */
+  public ViewFinder(final Window window) {
+    wrapper = new WindowWrapper(window);
+  }
+
+  /**
+   * Create finder wrapping given activity
+   *
+   * @param activity
+   */
+  public ViewFinder(final Activity activity) {
+    this(activity.getWindow());
   }
 
   /**
@@ -44,7 +106,7 @@ public class ViewFinder {
    */
   @SuppressWarnings("unchecked")
   public <V extends View> V find(final int id) {
-    return (V) view.findViewById(id);
+    return (V) wrapper.findViewById(id);
   }
 
   /**
@@ -54,7 +116,7 @@ public class ViewFinder {
    * @return image view
    */
   public ImageView imageView(final int id) {
-    return (ImageView) view.findViewById(id);
+    return (ImageView) find(id);
   }
 
   /**
@@ -78,7 +140,7 @@ public class ViewFinder {
    * @return text view
    */
   public TextView setText(final int id, final int content) {
-    return setText(id, view.getResources().getString(content));
+    return setText(id, wrapper.getResources().getString(content));
   }
 
   /**
@@ -89,7 +151,7 @@ public class ViewFinder {
    * @return view registered with listener
    */
   public View onClick(final int id, final OnClickListener listener) {
-    View clickable = view.findViewById(id);
+    View clickable = find(id);
     clickable.setOnClickListener(listener);
     return clickable;
   }
