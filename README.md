@@ -6,7 +6,7 @@ SDK but aren't.
 If you think something in this library is already handled in a better way
 by Android please open an [issue](https://github.com/kevinsawicki/wishlist/issues).
 
-This library is available from [Maven Centra](http://search.maven.org/#artifactdetails%7Ccom.github.kevinsawicki%7Cwishlist%7C0.2%7Capklib)
+This library is available from [Maven Central](http://search.maven.org/#artifactdetails%7Ccom.github.kevinsawicki%7Cwishlist%7C0.2%7Capklib):
 
 ```xml
 <dependency>
