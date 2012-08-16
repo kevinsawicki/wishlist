@@ -73,12 +73,12 @@ public class LocationUtils {
       bestLocation = manager.getLastKnownLocation(provider);
     else
       bestLocation = null;
-    Location gpsLocation = manager.getLastKnownLocation(GPS_PROVIDER);
-    Location networkLocation = manager.getLastKnownLocation(NETWORK_PROVIDER);
-    Location passiveLocation = manager.getLastKnownLocation(PASSIVE_PROVIDER);
-    Location latestLocation = getLatest(bestLocation, gpsLocation);
-    latestLocation = getLatest(latestLocation, networkLocation);
-    latestLocation = getLatest(latestLocation, passiveLocation);
+    Location latestLocation = getLatest(bestLocation,
+        manager.getLastKnownLocation(GPS_PROVIDER));
+    latestLocation = getLatest(latestLocation,
+        manager.getLastKnownLocation(NETWORK_PROVIDER));
+    latestLocation = getLatest(latestLocation,
+        manager.getLastKnownLocation(PASSIVE_PROVIDER));
     return latestLocation;
   }
 
