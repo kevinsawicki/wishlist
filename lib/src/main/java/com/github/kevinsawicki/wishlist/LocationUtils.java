@@ -20,16 +20,15 @@ import static android.location.Criteria.ACCURACY_FINE;
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static android.location.LocationManager.PASSIVE_PROVIDER;
-
-import java.io.IOException;
-import java.util.List;
-
 import android.content.Context;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  *
@@ -58,6 +57,9 @@ public class LocationUtils {
 
   /**
    * Get the latest location trying multiple providers
+   * <p>
+   * Calling this method requires that your application's manifest contains the
+   * {@link android.Manifest.permission#ACCESS_FINE_LOCATION} permission
    *
    * @param context
    * @return latest location set or null if none
