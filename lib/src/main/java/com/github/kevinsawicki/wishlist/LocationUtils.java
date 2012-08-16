@@ -20,8 +20,14 @@ import static android.location.Criteria.ACCURACY_FINE;
 import static android.location.LocationManager.GPS_PROVIDER;
 import static android.location.LocationManager.NETWORK_PROVIDER;
 import static android.location.LocationManager.PASSIVE_PROVIDER;
+
+import java.io.IOException;
+import java.util.List;
+
 import android.content.Context;
+import android.location.Address;
 import android.location.Criteria;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 
@@ -74,5 +80,32 @@ public class LocationUtils {
     latestLocation = getLatest(latestLocation, networkLocation);
     latestLocation = getLatest(latestLocation, passiveLocation);
     return latestLocation;
+  }
+
+  /**
+   * Get address for location
+   *
+   * @param context
+   * @param location
+   * @return possibly null address retrieved from location's latitude and
+   *         longitude
+   */
+  public static Address getAddress(final Context context,
+      final Location location) {
+    if (location == null)
+      return null;
+
+    final Geocoder geocoder = new Geocoder(context);
+    final List<Address> addresses;
+    try {
+      addresses = geocoder.getFromLocation(location.getLatitude(),
+          location.getLongitude(), 1);
+    } catch (IOException e) {
+      return null;
+    }
+    if (addresses != null && !addresses.isEmpty())
+      return addresses.get(0);
+    else
+      return null;
   }
 }
