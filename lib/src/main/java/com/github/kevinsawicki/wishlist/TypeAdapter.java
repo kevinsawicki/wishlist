@@ -79,6 +79,21 @@ public abstract class TypeAdapter extends BaseAdapter {
   }
 
   /**
+   * Set text on text view with given id to string at given resource id
+   *
+   * @param parentView
+   * @param childViewId
+   * @param resourceId
+   * @return text view
+   */
+  protected TextView setText(final View parentView, final int childViewId,
+      final int resourceId) {
+    final TextView textView = textView(parentView, childViewId);
+    textView.setText(resourceId);
+    return textView;
+  }
+
+  /**
    * Get child view
    *
    * @param parentView
