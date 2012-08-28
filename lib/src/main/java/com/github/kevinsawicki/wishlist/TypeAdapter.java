@@ -113,7 +113,7 @@ public abstract class TypeAdapter extends BaseAdapter {
    * @return text view
    */
   protected TextView setNumber(final View parentView, final int childViewId,
-      final int number) {
+      final long number) {
     final TextView textView = textView(parentView, childViewId);
     textView.setText(FORMAT_INT.format(number));
     return textView;
@@ -243,7 +243,7 @@ public abstract class TypeAdapter extends BaseAdapter {
    * @param number
    * @return text view
    */
-  protected TextView setNumber(final int childViewId, final int number) {
+  protected TextView setNumber(final int childViewId, final long number) {
     return setNumber(view, childViewId, number);
   }
 
