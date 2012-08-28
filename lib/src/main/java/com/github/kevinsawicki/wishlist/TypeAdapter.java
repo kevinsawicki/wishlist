@@ -15,13 +15,13 @@
  */
 package com.github.kevinsawicki.wishlist;
 
-import java.text.NumberFormat;
-
 import android.view.View;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.NumberFormat;
 
 /**
  * Base adapter
@@ -149,7 +149,7 @@ public abstract class TypeAdapter extends BaseAdapter {
   }
 
   /**
-   * Set checked state of {@link CheckBox} with given view id
+   * Set checked state of the {@link CompoundButton} with the given view id
    *
    * @param parentView
    *
@@ -157,11 +157,11 @@ public abstract class TypeAdapter extends BaseAdapter {
    * @param checked
    * @return check box
    */
-  protected CheckBox setChecked(final View parentView, final int childViewId,
-      final boolean checked) {
-    final CheckBox checkbox = view(parentView, childViewId);
-    checkbox.setChecked(checked);
-    return checkbox;
+  protected CompoundButton setChecked(final View parentView,
+      final int childViewId, final boolean checked) {
+    final CompoundButton button = view(parentView, childViewId);
+    button.setChecked(checked);
+    return button;
   }
 
   /**
@@ -288,13 +288,14 @@ public abstract class TypeAdapter extends BaseAdapter {
   }
 
   /**
-   * Set checked state of {@link CheckBox} with given view id
+   * Set the checked state of the {@link CompoundButton} with the given view id
    *
    * @param childViewId
    * @param checked
    * @return check box
    */
-  protected CheckBox setChecked(final int childViewId, final boolean checked) {
+  protected CompoundButton setChecked(final int childViewId,
+      final boolean checked) {
     return setChecked(view, childViewId, checked);
   }
 }
