@@ -31,7 +31,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *
+ * Utilities for dealing with the location service
  */
 public class LocationUtils {
 
