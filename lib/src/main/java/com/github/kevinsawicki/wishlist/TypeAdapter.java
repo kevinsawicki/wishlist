@@ -19,6 +19,7 @@ import java.text.NumberFormat;
 
 import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -148,6 +149,22 @@ public abstract class TypeAdapter extends BaseAdapter {
   }
 
   /**
+   * Set checked state of {@link CheckBox} with given view id
+   *
+   * @param parentView
+   *
+   * @param childViewId
+   * @param checked
+   * @return check box
+   */
+  protected CheckBox setChecked(final View parentView, final int childViewId,
+      final boolean checked) {
+    final CheckBox checkbox = view(parentView, childViewId);
+    checkbox.setChecked(checked);
+    return checkbox;
+  }
+
+  /**
    * Create array with given base ids and additional ids
    *
    * @param base
@@ -268,5 +285,16 @@ public abstract class TypeAdapter extends BaseAdapter {
    */
   protected View setGone(final int childViewId, boolean gone) {
     return setGone(view, childViewId, gone);
+  }
+
+  /**
+   * Set checked state of {@link CheckBox} with given view id
+   *
+   * @param childViewId
+   * @param checked
+   * @return check box
+   */
+  protected CheckBox setChecked(final int childViewId, final boolean checked) {
+    return setChecked(view, childViewId, checked);
   }
 }
