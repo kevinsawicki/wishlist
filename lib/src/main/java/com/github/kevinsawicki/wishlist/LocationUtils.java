@@ -42,7 +42,8 @@ public class LocationUtils {
    * @param location2
    * @return location
    */
-  private static Location getLatest(Location location1, Location location2) {
+  private static Location getLatest(final Location location1,
+      final Location location2) {
     if (location1 == null)
       return location2;
 
