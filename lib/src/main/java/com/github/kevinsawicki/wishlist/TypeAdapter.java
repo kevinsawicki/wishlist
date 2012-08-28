@@ -67,8 +67,9 @@ public abstract class TypeAdapter extends BaseAdapter {
    * @param childViewId
    * @return view
    */
-  protected View view(final View parentView, final int childViewId) {
-    return (View) parentView.getTag(childViewId);
+  @SuppressWarnings("unchecked")
+  protected <V extends View> V view(final View parentView, final int childViewId) {
+    return (V) parentView.getTag(childViewId);
   }
 
   /**
@@ -207,7 +208,7 @@ public abstract class TypeAdapter extends BaseAdapter {
    * @param childViewId
    * @return view
    */
-  protected View view(final int childViewId) {
+  protected <V extends View> V view(final int childViewId) {
     return view(view, childViewId);
   }
 
