@@ -15,6 +15,8 @@
  */
 package com.github.kevinsawicki.wishlist;
 
+import java.text.NumberFormat;
+
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -24,6 +26,12 @@ import android.widget.TextView;
  * Base adapter
  */
 public abstract class TypeAdapter extends BaseAdapter {
+
+  /**
+   * Number formatter for integers
+   */
+  protected static final NumberFormat FORMAT_INT = NumberFormat
+      .getIntegerInstance();
 
   /**
    * View being updated
@@ -90,6 +98,24 @@ public abstract class TypeAdapter extends BaseAdapter {
       final int resourceId) {
     final TextView textView = textView(parentView, childViewId);
     textView.setText(resourceId);
+    return textView;
+  }
+
+  /**
+   * Set text on text view to be formatted version of given integer number
+   * <p>
+   * This method uses the formatter returned from
+   * {@link NumberFormat#getIntegerInstance()}
+   *
+   * @param parentView
+   * @param childViewId
+   * @param number
+   * @return text view
+   */
+  protected TextView setNumber(final View parentView, final int childViewId,
+      final int number) {
+    final TextView textView = textView(parentView, childViewId);
+    textView.setText(FORMAT_INT.format(number));
     return textView;
   }
 
@@ -205,6 +231,20 @@ public abstract class TypeAdapter extends BaseAdapter {
    */
   protected TextView setText(final int childViewId, final int resourceId) {
     return setText(view, childViewId, resourceId);
+  }
+
+  /**
+   * Set text on text view to be formatted version of given integer number
+   * <p>
+   * This method uses the formatter returned from
+   * {@link NumberFormat#getIntegerInstance()}
+   *
+   * @param childViewId
+   * @param number
+   * @return text view
+   */
+  protected TextView setNumber(final int childViewId, final int number) {
+    return setNumber(view, childViewId, number);
   }
 
   /**
