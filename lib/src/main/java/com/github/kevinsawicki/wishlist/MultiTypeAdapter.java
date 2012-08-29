@@ -209,6 +209,20 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
   }
 
   /**
+   * Initialize view for given type
+   * <p>
+   * Sub-classes may override this method but should call super so that tags are
+   * properly set on the given root view.
+   *
+   * @param type
+   * @param view
+   * @return view
+   */
+  protected View initialize(final int type, final View view) {
+    return super.initialize(view, children[type]);
+  }
+
+  /**
    * Update view for item
    *
    * @param position
@@ -220,8 +234,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
   public View getView(int position, View convertView, ViewGroup parent) {
     int type = getItemViewType(position);
     if (convertView == null)
-      convertView = initialize(inflater.inflate(layout[type], null),
-          children[type]);
+      convertView = initialize(type, inflater.inflate(layout[type], null));
     update(position, convertView, getItem(position), type);
     return convertView;
   }
