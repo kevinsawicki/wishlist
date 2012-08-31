@@ -173,6 +173,32 @@ public class ViewFinder {
   }
 
   /**
+   * Register on click listener with all given child view ids
+   *
+   * @param ids
+   * @param listener
+   */
+  public void onClick(final OnClickListener listener, final int... ids) {
+    for (int id : ids)
+      find(id).setOnClickListener(listener);
+  }
+
+  /**
+   * Register runnable to be invoked when all given child view ids are clicked
+   *
+   * @param ids
+   * @param runnable
+   */
+  public void onClick(final Runnable runnable, final int... ids) {
+    onClick(new OnClickListener() {
+
+      public void onClick(View v) {
+        runnable.run();
+      }
+    }, ids);
+  }
+
+  /**
    * Set drawable on child image view
    *
    * @param id
