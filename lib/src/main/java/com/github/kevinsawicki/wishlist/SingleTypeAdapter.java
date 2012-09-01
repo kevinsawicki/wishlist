@@ -84,7 +84,7 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
    *
    * @param items
    */
-  public void setItems(Collection<?> items) {
+  public void setItems(final Collection<?> items) {
     if (items != null && !items.isEmpty())
       setItems(items.toArray());
     else
@@ -121,6 +121,9 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
 
   /**
    * Get child view ids to store
+   * <p>
+   * The index of each id in the returned array should be used when using the
+   * helpers to update a specific child view
    *
    * @return ids
    */
@@ -144,7 +147,7 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
    * @param item
    */
   protected void update(int position, View view, V item) {
-    this.view = view;
+    childViews = getChildren(view);
     update(position, item);
   }
 

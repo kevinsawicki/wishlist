@@ -21,7 +21,6 @@ import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -159,6 +158,9 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Get child view ids for type
+   * <p>
+   * The index of each id in the returned array should be used when using the
+   * helpers to update a specific child view
    *
    * @param type
    * @return array of view ids
@@ -182,20 +184,6 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
   }
 
   /**
-   * Set text on text view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @param text
-   * @return text view
-   */
-  protected TextView setText(View parentView, int childViewId, CharSequence text) {
-    TextView textView = textView(parentView, childViewId);
-    textView.setText(text);
-    return textView;
-  }
-
-  /**
    * Update view for item
    *
    * @param position
@@ -204,7 +192,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * @param type
    */
   protected void update(int position, View view, Object item, int type) {
-    this.view = view;
+    childViews = getChildren(view);
     update(position, item, type);
   }
 

@@ -35,151 +35,9 @@ public abstract class TypeAdapter extends BaseAdapter {
       .getIntegerInstance();
 
   /**
-   * View being updated
+   * Child views currently being updated
    */
-  protected View view;
-
-  /**
-   * Get text view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @return text view
-   */
-  protected TextView textView(final View parentView, final int childViewId) {
-    return (TextView) parentView.getTag(childViewId);
-  }
-
-  /**
-   * Get image view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @return image view
-   */
-  protected ImageView imageView(final View parentView, final int childViewId) {
-    return (ImageView) parentView.getTag(childViewId);
-  }
-
-  /**
-   * Get view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @return view
-   */
-  @SuppressWarnings("unchecked")
-  protected <V extends View> V view(final View parentView, final int childViewId) {
-    return (V) parentView.getTag(childViewId);
-  }
-
-  /**
-   * Set text on text view with given id
-   *
-   * @param parentView
-   * @param childViewId
-   * @param text
-   * @return text view
-   */
-  protected TextView setText(final View parentView, final int childViewId,
-      final CharSequence text) {
-    final TextView textView = textView(parentView, childViewId);
-    textView.setText(text);
-    return textView;
-  }
-
-  /**
-   * Set text on text view with given id to string at given resource id
-   *
-   * @param parentView
-   * @param childViewId
-   * @param resourceId
-   * @return text view
-   */
-  protected TextView setText(final View parentView, final int childViewId,
-      final int resourceId) {
-    final TextView textView = textView(parentView, childViewId);
-    textView.setText(resourceId);
-    return textView;
-  }
-
-  /**
-   * Set text on text view to be formatted version of given integer number
-   * <p>
-   * This method uses the formatter returned from
-   * {@link NumberFormat#getIntegerInstance()}
-   *
-   * @param parentView
-   * @param childViewId
-   * @param number
-   * @return text view
-   */
-  protected TextView setNumber(final View parentView, final int childViewId,
-      final long number) {
-    final TextView textView = textView(parentView, childViewId);
-    textView.setText(FORMAT_INT.format(number));
-    return textView;
-  }
-
-  /**
-   * Get child view
-   *
-   * @param parentView
-   * @param childViewId
-   * @param childViewClass
-   * @return child view
-   */
-  @SuppressWarnings("unchecked")
-  protected <T> T getView(final View parentView, final int childViewId,
-      final Class<T> childViewClass) {
-    return (T) parentView.getTag(childViewId);
-  }
-
-  /**
-   * Set child view as gone or visible
-   *
-   * @param parentView
-   * @param childViewId
-   * @param gone
-   * @return child view
-   */
-  protected View setGone(final View parentView, final int childViewId,
-      boolean gone) {
-    return ViewUtils.setGone(view(parentView, childViewId), gone);
-  }
-
-  /**
-   * Set checked state of the {@link CompoundButton} with the given view id
-   *
-   * @param parentView
-   *
-   * @param childViewId
-   * @param checked
-   * @return check box
-   */
-  protected CompoundButton setChecked(final View parentView,
-      final int childViewId, final boolean checked) {
-    final CompoundButton button = view(parentView, childViewId);
-    button.setChecked(checked);
-    return button;
-  }
-
-  /**
-   * Create array with given base ids and additional ids
-   *
-   * @param base
-   * @param ids
-   * @return extended array
-   */
-  protected int[] join(final int[] base, final int... ids) {
-    if (ids == null || ids.length == 0)
-      return base;
-
-    final int[] extended = new int[base.length + ids.length];
-    System.arraycopy(base, 0, extended, 0, base.length);
-    System.arraycopy(ids, 0, extended, base.length, ids.length);
-    return extended;
-  }
+  protected View[] childViews;
 
   /**
    * Initialize view by binding indexed child views to tags on the root view
@@ -191,64 +49,143 @@ public abstract class TypeAdapter extends BaseAdapter {
    * @return view
    */
   protected View initialize(final View view, final int[] children) {
-    for (int id : children) {
-      View child = view.findViewById(id);
-      if (child != null)
-        view.setTag(id, child);
-    }
+    final View[] views = new View[children.length];
+    for (int i = 0; i < children.length; i++)
+      views[i] = view.findViewById(children[i]);
+    view.setTag(views);
     return view;
   }
 
   /**
-   * Get text view with given id
+   * Get indexed children
    *
-   * @param childViewId
+   * @param parentView
+   * @return children
+   */
+  protected View[] getChildren(final View parentView) {
+    return (View[]) parentView.getTag();
+  }
+
+  /**
+   * Get text view at given index
+   *
+   * @param childViewIndex
    * @return text view
    */
-  protected TextView textView(final int childViewId) {
-    return textView(view, childViewId);
+  protected TextView textView(final int childViewIndex) {
+    return (TextView) childViews[childViewIndex];
   }
 
   /**
-   * Get image view with given id
+   * Get text view at given index
    *
-   * @param childViewId
+   * @param parentView
+   * @param childViewIndex
+   * @return text view
+   */
+  protected TextView textView(final View parentView, final int childViewIndex) {
+    return (TextView) getChildren(parentView)[childViewIndex];
+  }
+
+  /**
+   * Get image view at given index
+   *
+   * @param childViewIndex
    * @return image view
    */
-  protected ImageView imageView(final int childViewId) {
-    return imageView(view, childViewId);
+  protected ImageView imageView(final int childViewIndex) {
+    return (ImageView) childViews[childViewIndex];
   }
 
   /**
-   * Get view with given id
+   * Get image view at given index
    *
-   * @param childViewId
+   * @param parentView
+   * @param childViewIndex
+   * @return image view
+   */
+  protected ImageView imageView(final View parentView, final int childViewIndex) {
+    return (ImageView) getChildren(parentView)[childViewIndex];
+  }
+
+  /**
+   * Get view at given index
+   *
+   * @param childViewIndex
    * @return view
    */
-  protected <V extends View> V view(final int childViewId) {
-    return view(view, childViewId);
+  @SuppressWarnings("unchecked")
+  protected <V extends View> V view(final int childViewIndex) {
+    return (V) childViews[childViewIndex];
   }
 
   /**
-   * Set text on text view with given id
+   * Get view at given index
    *
-   * @param childViewId
+   * @param parentView
+   * @param childViewIndex
+   * @return view
+   */
+  @SuppressWarnings("unchecked")
+  protected <V extends View> V view(final View parentView,
+      final int childViewIndex) {
+    return (V) getChildren(parentView)[childViewIndex];
+  }
+
+  /**
+   * Set text on text view at given index
+   *
+   * @param childViewIndex
    * @param text
    * @return text view
    */
-  protected TextView setText(final int childViewId, final CharSequence text) {
-    return setText(view, childViewId, text);
+  protected TextView setText(final int childViewIndex, final CharSequence text) {
+    final TextView textView = textView(childViewIndex);
+    textView.setText(text);
+    return textView;
   }
 
   /**
-   * Set text on text view with given id to given string resource
+   * Set text on text view at given index
    *
-   * @param childViewId
+   * @param parentView
+   * @param childViewIndex
+   * @param text
+   * @return text view
+   */
+  protected TextView setText(final View parentView, final int childViewIndex,
+      final CharSequence text) {
+    final TextView textView = textView(parentView, childViewIndex);
+    textView.setText(text);
+    return textView;
+  }
+
+  /**
+   * Set text on text view at index to string resource
+   *
+   * @param childViewIndex
    * @param resourceId
    * @return text view
    */
-  protected TextView setText(final int childViewId, final int resourceId) {
-    return setText(view, childViewId, resourceId);
+  protected TextView setText(final int childViewIndex, final int resourceId) {
+    final TextView textView = textView(childViewIndex);
+    textView.setText(resourceId);
+    return textView;
+  }
+
+  /**
+   * Set text on text view at index to string resource
+   *
+   * @param parentView
+   * @param childViewIndex
+   * @param resourceId
+   * @return text view
+   */
+  protected TextView setText(final View parentView, final int childViewIndex,
+      final int resourceId) {
+    final TextView textView = textView(parentView, childViewIndex);
+    textView.setText(resourceId);
+    return textView;
   }
 
   /**
@@ -257,45 +194,111 @@ public abstract class TypeAdapter extends BaseAdapter {
    * This method uses the formatter returned from
    * {@link NumberFormat#getIntegerInstance()}
    *
-   * @param childViewId
+   * @param childViewIndex
    * @param number
    * @return text view
    */
-  protected TextView setNumber(final int childViewId, final long number) {
-    return setNumber(view, childViewId, number);
+  protected TextView setNumber(final int childViewIndex, final long number) {
+    final TextView textView = textView(childViewIndex);
+    textView.setText(FORMAT_INT.format(number));
+    return textView;
+  }
+
+  /**
+   * Set text on text view to be formatted version of given integer number
+   * <p>
+   * This method uses the formatter returned from
+   * {@link NumberFormat#getIntegerInstance()}
+   *
+   * @param parentView
+   * @param childViewIndex
+   * @param number
+   * @return text view
+   */
+  protected TextView setNumber(final View parentView, final int childViewIndex,
+      final long number) {
+    final TextView textView = textView(parentView, childViewIndex);
+    textView.setText(FORMAT_INT.format(number));
+    return textView;
   }
 
   /**
    * Get child view
    *
-   * @param childViewId
+   * @param childViewIndex
    * @param childViewClass
    * @return child view
    */
-  protected <T> T getView(final int childViewId, final Class<T> childViewClass) {
-    return getView(view, childViewId, childViewClass);
+  @SuppressWarnings("unchecked")
+  protected <T> T getView(final int childViewIndex,
+      final Class<T> childViewClass) {
+    return (T) childViews[childViewIndex];
+  }
+
+  /**
+   * Get child view
+   *
+   * @param parentView
+   * @param childViewIndex
+   * @param childViewClass
+   * @return child view
+   */
+  @SuppressWarnings("unchecked")
+  protected <T> T getView(final View parentView, final int childViewIndex,
+      final Class<T> childViewClass) {
+    return (T) getChildren(parentView)[childViewIndex];
   }
 
   /**
    * Set child view as gone or visible
    *
-   * @param childViewId
+   * @param childViewIndex
    * @param gone
    * @return child view
    */
-  protected View setGone(final int childViewId, boolean gone) {
-    return setGone(view, childViewId, gone);
+  protected View setGone(final int childViewIndex, boolean gone) {
+    return ViewUtils.setGone(view(childViewIndex), gone);
   }
 
   /**
-   * Set the checked state of the {@link CompoundButton} with the given view id
+   * Set child view as gone or visible
    *
-   * @param childViewId
+   * @param parentView
+   * @param childViewIndex
+   * @param gone
+   * @return child view
+   */
+  protected View setGone(final View parentView, final int childViewIndex,
+      boolean gone) {
+    return ViewUtils.setGone(view(parentView, childViewIndex), gone);
+  }
+
+  /**
+   * Set the checked state of the {@link CompoundButton} with at index
+   *
+   * @param childViewIndex
    * @param checked
    * @return check box
    */
-  protected CompoundButton setChecked(final int childViewId,
+  protected CompoundButton setChecked(final int childViewIndex,
       final boolean checked) {
-    return setChecked(view, childViewId, checked);
+    final CompoundButton button = view(childViewIndex);
+    button.setChecked(checked);
+    return button;
+  }
+
+  /**
+   * Set the checked state of the {@link CompoundButton} with at index
+   *
+   * @param parentView
+   * @param childViewIndex
+   * @param checked
+   * @return check box
+   */
+  protected CompoundButton setChecked(final View parentView,
+      final int childViewIndex, final boolean checked) {
+    final CompoundButton button = view(parentView, childViewIndex);
+    button.setChecked(checked);
+    return button;
   }
 }
