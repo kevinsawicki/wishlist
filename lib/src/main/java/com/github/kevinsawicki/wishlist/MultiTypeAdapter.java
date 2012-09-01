@@ -192,7 +192,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * @param type
    */
   protected void update(int position, View view, Object item, int type) {
-    childViews = getChildren(view);
+    setCurrentView(view);
     update(position, item, type);
   }
 

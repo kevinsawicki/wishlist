@@ -147,7 +147,7 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
    * @param item
    */
   protected void update(int position, View view, V item) {
-    childViews = getChildren(view);
+    setCurrentView(view);
     update(position, item);
   }
 

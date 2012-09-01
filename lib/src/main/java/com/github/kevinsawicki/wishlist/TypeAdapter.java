@@ -35,6 +35,11 @@ public abstract class TypeAdapter extends BaseAdapter {
       .getIntegerInstance();
 
   /**
+   * Root view currently being updated
+   */
+  protected View view;
+
+  /**
    * Child views currently being updated
    */
   protected View[] childViews;
@@ -54,6 +59,16 @@ public abstract class TypeAdapter extends BaseAdapter {
       views[i] = view.findViewById(children[i]);
     view.setTag(views);
     return view;
+  }
+
+  /**
+   * Set current view that is currently being updated
+   *
+   * @param view
+   */
+  protected void setCurrentView(final View view) {
+    this.view = view;
+    childViews = getChildren(view);
   }
 
   /**
