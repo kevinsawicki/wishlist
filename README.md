@@ -6,13 +6,13 @@ SDK but aren't.
 If you think something in this library is already handled in a better way
 by Android please open an [issue](https://github.com/kevinsawicki/wishlist/issues).
 
-This library is available from [Maven Central](http://search.maven.org/#artifactdetails%7Ccom.github.kevinsawicki%7Cwishlist%7C0.2%7Capklib):
+This library is available from [Maven Central](http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22com.github.kevinsawicki%22%20AND%20a%3A%22wishlist%22):
 
 ```xml
 <dependency>
   <groupId>com.github.kevinsawicki</groupId>
   <artifactId>wishlist</artifactId>
-  <version>0.2</version>
+  <version>0.4</version>
   <type>apklib</type>
 </dependency>
 ```
