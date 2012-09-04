@@ -17,7 +17,6 @@ package com.github.kevinsawicki.wishlist;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.SparseIntArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,15 +30,30 @@ import java.util.List;
  */
 public abstract class MultiTypeAdapter extends TypeAdapter {
 
+  private static class Item {
+
+    public final int type;
+
+    public final Object item;
+
+    private Item(final int type, final Object item) {
+      this.type = type;
+      this.item = item;
+    }
+
+    @Override
+    public int hashCode() {
+      return item.hashCode();
+    }
+  }
+
   private final LayoutInflater inflater;
 
   private final int[] layout;
 
   private final int[][] children;
 
-  private final List<Object> items = new ArrayList<Object>();
-
-  private final SparseIntArray types = new SparseIntArray();
+  private final List<Item> items = new ArrayList<Item>();
 
   /**
    * Create adapter
@@ -87,7 +101,6 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    */
   public MultiTypeAdapter clear() {
     items.clear();
-    types.clear();
 
     notifyDataSetChanged();
     return this;
@@ -101,8 +114,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * @return this adapter
    */
   public MultiTypeAdapter addItem(int type, Object item) {
-    types.put(items.size(), type);
-    items.add(item);
+    items.add(new Item(type, item));
 
     notifyDataSetChanged();
     return this;
@@ -119,10 +131,8 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
     if (items == null || items.length == 0)
       return this;
 
-    for (Object item : items) {
-      types.put(this.items.size(), type);
-      this.items.add(item);
-    }
+    for (Object item : items)
+      this.items.add(new Item(type, item));
 
     notifyDataSetChanged();
     return this;
@@ -139,10 +149,8 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
     if (items == null || items.isEmpty())
       return this;
 
-    for (Object item : items) {
-      types.put(this.items.size(), type);
-      this.items.add(item);
-    }
+    for (Object item : items)
+      this.items.add(new Item(type, item));
 
     notifyDataSetChanged();
     return this;
@@ -167,20 +175,24 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    */
   protected abstract int[] getChildViewIds(int type);
 
+  @Override
   public int getCount() {
     return items.size();
   }
 
+  @Override
   public Object getItem(final int position) {
-    return items.get(position);
+    return items.get(position).item;
   }
 
-  public long getItemId(int position) {
+  @Override
+  public long getItemId(final int position) {
     return items.get(position).hashCode();
   }
 
-  public int getItemViewType(int position) {
-    return types.get(position);
+  @Override
+  public int getItemViewType(final int position) {
+    return items.get(position).type;
   }
 
   /**
