@@ -113,7 +113,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * @param item
    * @return this adapter
    */
-  public MultiTypeAdapter addItem(int type, Object item) {
+  public MultiTypeAdapter addItem(final int type, final Object item) {
     items.add(new Item(type, item));
 
     notifyDataSetChanged();
@@ -127,7 +127,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * @param items
    * @return this adapter
    */
-  public MultiTypeAdapter addItems(int type, Object[] items) {
+  public MultiTypeAdapter addItems(final int type, final Object[] items) {
     if (items == null || items.length == 0)
       return this;
 
@@ -145,7 +145,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * @param items
    * @return this adapter
    */
-  public MultiTypeAdapter addItems(int type, Collection<?> items) {
+  public MultiTypeAdapter addItems(final int type, final Collection<?> items) {
     if (items == null || items.isEmpty())
       return this;
 
@@ -203,7 +203,8 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * @param item
    * @param type
    */
-  protected void update(int position, View view, Object item, int type) {
+  protected void update(final int position, final View view, final Object item,
+      final int type) {
     setCurrentView(view);
     update(position, item, type);
   }
@@ -231,7 +232,8 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    */
   protected abstract void update(int position, Object item, int type);
 
-  public View getView(int position, View convertView, ViewGroup parent) {
+  public View getView(final int position, View convertView,
+      final ViewGroup parent) {
     int type = getItemViewType(position);
     if (convertView == null)
       convertView = initialize(type, inflater.inflate(layout[type], null));
