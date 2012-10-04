@@ -118,7 +118,7 @@ public class ViewFinder {
    * @return image view
    */
   public ImageView imageView(final int id) {
-    return (ImageView) find(id);
+    return find(id);
   }
 
   /**
