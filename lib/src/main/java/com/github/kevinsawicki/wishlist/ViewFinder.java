@@ -20,6 +20,8 @@ import android.content.res.Resources;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -120,6 +122,16 @@ public class ViewFinder {
   }
 
   /**
+   * Get compound button with id
+   *
+   * @param id
+   * @return image view
+   */
+  public CompoundButton compoundButton(final int id) {
+    return find(id);
+  }
+
+  /**
    * Set text of child view with given id
    *
    * @param id
@@ -209,5 +221,63 @@ public class ViewFinder {
     ImageView image = imageView(id);
     image.setImageDrawable(image.getResources().getDrawable(drawable));
     return image;
+  }
+
+  /**
+   * Register on checked change listener to child view with given id
+   *
+   * @param id
+   * @param listener
+   * @return view registered with listener
+   */
+  public CompoundButton onCheck(final int id,
+      final OnCheckedChangeListener listener) {
+    CompoundButton checkable = find(id);
+    checkable.setOnCheckedChangeListener(listener);
+    return checkable;
+  }
+
+  /**
+   * Register runnable to be invoked when child view with given id is
+   * checked/unchecked
+   *
+   * @param id
+   * @param runnable
+   * @return view registered with runnable
+   */
+  public CompoundButton onCheck(final int id, final Runnable runnable) {
+    return onCheck(id, new OnCheckedChangeListener() {
+
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        runnable.run();
+      }
+    });
+  }
+
+  /**
+   * Register on checked change listener with all given child view ids
+   *
+   * @param ids
+   * @param listener
+   */
+  public void onCheck(final OnCheckedChangeListener listener, final int... ids) {
+    for (int id : ids)
+      compoundButton(id).setOnCheckedChangeListener(listener);
+  }
+
+  /**
+   * Register runnable to be invoked when all given child view ids are
+   * checked/unchecked
+   *
+   * @param ids
+   * @param runnable
+   */
+  public void onCheck(final Runnable runnable, final int... ids) {
+    onCheck(new OnCheckedChangeListener() {
+
+      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        runnable.run();
+      }
+    }, ids);
   }
 }
