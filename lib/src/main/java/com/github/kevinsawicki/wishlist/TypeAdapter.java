@@ -58,6 +58,7 @@ public abstract class TypeAdapter extends BaseAdapter {
     for (int i = 0; i < children.length; i++)
       views[i] = view.findViewById(children[i]);
     view.setTag(views);
+    this.view = view;
     return view;
   }
 
