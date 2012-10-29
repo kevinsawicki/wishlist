@@ -15,6 +15,12 @@
  */
 package com.github.kevinsawicki.wishlist;
 
+import static android.text.format.DateUtils.FORMAT_NUMERIC_DATE;
+import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
+import static android.text.format.DateUtils.FORMAT_SHOW_YEAR;
+import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
+import android.text.TextUtils;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
@@ -317,5 +323,69 @@ public abstract class TypeAdapter extends BaseAdapter {
     final CompoundButton button = view(parentView, childViewIndex);
     button.setChecked(checked);
     return button;
+  }
+
+  /**
+   * Set the text on the text view if it is non-empty and make the view gone if
+   * it is empty
+   *
+   * @param childViewIndex
+   * @param text
+   * @return text view
+   */
+  public TextView setVisibleText(final int childViewIndex,
+      final CharSequence text) {
+    TextView view = textView(childViewIndex);
+    view.setText(text);
+    ViewUtils.setGone(view, TextUtils.isEmpty(text));
+    return view;
+  }
+
+  /**
+   * Set the text on the text view if it is non-empty and make the view gone if
+   * it is empty
+   *
+   * @param parentView
+   *
+   * @param childViewIndex
+   * @param text
+   * @return text view
+   */
+  public TextView setVisibleText(final View parentView,
+      final int childViewIndex, final CharSequence text) {
+    TextView view = textView(parentView, childViewIndex);
+    view.setText(text);
+    ViewUtils.setGone(view, TextUtils.isEmpty(text));
+    return view;
+  }
+
+  private CharSequence formatRelativeTimeSpan(final long time) {
+    return DateUtils.getRelativeTimeSpanString(time,
+        System.currentTimeMillis(), MINUTE_IN_MILLIS, FORMAT_SHOW_DATE
+            | FORMAT_SHOW_YEAR | FORMAT_NUMERIC_DATE);
+  }
+
+  /**
+   * Set relative time span on text view
+   *
+   * @param childViewIndex
+   * @param time
+   * @return text view
+   */
+  public TextView setRelativeTimeSpan(final int childViewIndex, final long time) {
+    return setText(childViewIndex, formatRelativeTimeSpan(time));
+  }
+
+  /**
+   * Set relative time span on text view
+   *
+   * @param parentView
+   * @param childViewIndex
+   * @param time
+   * @return text view
+   */
+  public TextView setRelativeTimeSpan(final View parentView,
+      final int childViewIndex, final long time) {
+    return setText(parentView, childViewIndex, formatRelativeTimeSpan(time));
   }
 }
