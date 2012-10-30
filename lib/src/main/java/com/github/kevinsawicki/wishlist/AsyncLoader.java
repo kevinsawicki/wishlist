@@ -37,12 +37,12 @@ public abstract class AsyncLoader<D> extends AsyncTaskLoader<D> {
    *
    * @param context
    */
-  public AsyncLoader(Context context) {
+  public AsyncLoader(final Context context) {
     super(context);
   }
 
   @Override
-  public void deliverResult(D data) {
+  public void deliverResult(final D data) {
     if (isReset())
       // An async query came in while the loader is stopped
       return;
