@@ -15,10 +15,6 @@
  */
 package com.github.kevinsawicki.wishlist;
 
-import static android.text.format.DateUtils.FORMAT_NUMERIC_DATE;
-import static android.text.format.DateUtils.FORMAT_SHOW_DATE;
-import static android.text.format.DateUtils.FORMAT_SHOW_YEAR;
-import static android.text.format.DateUtils.MINUTE_IN_MILLIS;
 import android.text.TextUtils;
 import android.text.format.DateUtils;
 import android.view.View;
@@ -360,9 +356,7 @@ public abstract class TypeAdapter extends BaseAdapter {
   }
 
   private CharSequence formatRelativeTimeSpan(final long time) {
-    return DateUtils.getRelativeTimeSpanString(time,
-        System.currentTimeMillis(), MINUTE_IN_MILLIS, FORMAT_SHOW_DATE
-            | FORMAT_SHOW_YEAR | FORMAT_NUMERIC_DATE);
+    return DateUtils.getRelativeTimeSpanString(time);
   }
 
   /**
