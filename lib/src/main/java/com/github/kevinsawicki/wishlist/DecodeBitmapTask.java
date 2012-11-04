@@ -34,11 +34,20 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
 
   private static final byte[] BUFFER = new byte[16 * 1024];
 
-  private final int maxWidth;
+  /**
+   * Maximum width of decoded bitmap
+   */
+  protected final int maxWidth;
 
-  private final int maxHeight;
+  /**
+   * Maximum height of decoded bitmap
+   */
+  protected final int maxHeight;
 
-  private final String path;
+  /**
+   * Path to decoded bitmap from
+   */
+  protected final String path;
 
   /**
    * Create task to decode the bitmap at the specified path to the specified
