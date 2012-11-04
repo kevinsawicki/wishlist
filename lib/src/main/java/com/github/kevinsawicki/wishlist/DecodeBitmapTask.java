@@ -145,4 +145,13 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
     else
       return null;
   }
+
+  /**
+   * Get path being decoded
+   *
+   * @return path
+   */
+  public String getPath() {
+    return path;
+  }
 }
