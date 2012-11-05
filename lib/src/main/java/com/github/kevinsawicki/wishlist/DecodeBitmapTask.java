@@ -32,6 +32,16 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
 
   private static final String TAG = "DecodeBitmapTask";
 
+  /**
+   * Get byte count
+   *
+   * @param bitmap
+   * @return byte count
+   */
+  public static final int getByteCount(final Bitmap bitmap) {
+    return bitmap.getRowBytes() * bitmap.getHeight();
+  }
+
   private static final byte[] BUFFER = new byte[16 * 1024];
 
   /**
@@ -104,12 +114,11 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
       if (decoded == null)
         Log.d(TAG, "Decoding " + path + " failed");
       else if (Log.isLoggable(TAG, Log.DEBUG))
-        Log.d(
-            TAG,
+        Log.d(TAG,
             "Decoded to " + decoded.getWidth() + "x" + decoded.getHeight()
                 + " from max size: " + maxWidth + "x" + maxHeight
                 + " using scale:" + scale + " and byte count:"
-                + (decoded.getRowBytes() * decoded.getHeight()));
+                + getByteCount(decoded));
     }
 
     return decoded;
