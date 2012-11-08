@@ -85,8 +85,8 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
 
     BitmapFactory.decodeFile(path, options);
     if (options.outWidth <= 0 || options.outHeight <= 0) {
-      if (Log.isLoggable(TAG, DEBUG))
-        Log.d(TAG, "Decoding bounds of " + path + " failed");
+      Log.d(TAG, "Decoding bounds of " + path + " failed");
+      new File(path).delete();
       return null;
     }
 
@@ -111,9 +111,10 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
     }
 
     if (Log.isLoggable(TAG, DEBUG)) {
-      if (decoded == null)
+      if (decoded == null) {
         Log.d(TAG, "Decoding " + path + " failed");
-      else if (Log.isLoggable(TAG, Log.DEBUG))
+        new File(path).delete();
+      } else if (Log.isLoggable(TAG, Log.DEBUG))
         Log.d(TAG,
             "Decoded to " + decoded.getWidth() + "x" + decoded.getHeight()
                 + " from max size: " + maxWidth + "x" + maxHeight
