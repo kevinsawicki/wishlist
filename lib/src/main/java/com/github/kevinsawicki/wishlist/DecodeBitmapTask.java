@@ -114,7 +114,7 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
       if (decoded == null) {
         Log.d(TAG, "Decoding " + path + " failed");
         new File(path).delete();
-      } else if (Log.isLoggable(TAG, Log.DEBUG))
+      } else
         Log.d(TAG,
             "Decoded to " + decoded.getWidth() + "x" + decoded.getHeight()
                 + " from max size: " + maxWidth + "x" + maxHeight
