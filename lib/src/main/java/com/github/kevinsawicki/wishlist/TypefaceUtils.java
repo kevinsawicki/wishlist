@@ -59,4 +59,18 @@ public class TypefaceUtils {
     return view;
   }
 
+  /**
+   * Set typeface with name on given text views
+   *
+   * @param name
+   * @param views
+   */
+  public static void setTypeface(final String name, final TextView... views) {
+    if (views == null || views.length == 0)
+      return;
+
+    Typeface typeface = getTypeface(name, views[0]);
+    for (TextView view : views)
+      view.setTypeface(typeface);
+  }
 }
