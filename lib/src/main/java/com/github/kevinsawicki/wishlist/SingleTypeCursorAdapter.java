@@ -21,6 +21,7 @@ import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 /**
  * Cursor adapter for a single view type
@@ -32,6 +33,11 @@ public abstract class SingleTypeCursorAdapter extends CursorAdapter {
   private final int layout;
 
   private final int[] children;
+
+  /**
+   * Current cursor being binded to
+   */
+  protected Cursor cursor;
 
   /**
    * Create adapter
@@ -106,10 +112,46 @@ public abstract class SingleTypeCursorAdapter extends CursorAdapter {
   @Override
   public void bindView(View view, Context context, Cursor cursor) {
     updater.setCurrentView(view);
+    this.cursor = cursor;
   }
 
   @Override
   public View newView(Context context, Cursor cursor, ViewGroup parent) {
     return initialize(inflater.inflate(layout, null));
+  }
+
+  /**
+   * Set text on child view to string of column index
+   *
+   * @param childViewIndex
+   * @param columnIndex
+   * @return text view
+   */
+  protected TextView setText(final int childViewIndex, final int columnIndex) {
+    return updater.setText(childViewIndex, cursor.getString(columnIndex));
+  }
+
+  /**
+   * Set text on child view to number at column index
+   *
+   * @param childViewIndex
+   * @param columnIndex
+   * @return text view
+   */
+  protected TextView setNumber(final int childViewIndex, final int columnIndex) {
+    return updater.setNumber(childViewIndex, cursor.getLong(columnIndex));
+  }
+
+  /**
+   * Set text on child view to time span from number at column index
+   *
+   * @param childViewIndex
+   * @param columnIndex
+   * @return text view
+   */
+  protected TextView setRelativeTimeSpan(final int childViewIndex,
+      final int columnIndex) {
+    return updater.setRelativeTimeSpan(childViewIndex,
+        cursor.getLong(columnIndex));
   }
 }
