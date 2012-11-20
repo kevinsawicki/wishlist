@@ -28,7 +28,8 @@ import java.util.Map;
  */
 public class TypefaceUtils {
 
-  private static final Map<String, Typeface> TYPEFACES = new HashMap<String, Typeface>();
+  private static final Map<String, Typeface> TYPEFACES = new HashMap<String, Typeface>(
+      4);
 
   /**
    * Get typeface with name
