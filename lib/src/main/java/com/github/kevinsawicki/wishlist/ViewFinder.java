@@ -138,7 +138,7 @@ public class ViewFinder {
    * @param content
    * @return text view
    */
-  public TextView setText(final int id, final String content) {
+  public TextView setText(final int id, final CharSequence content) {
     final TextView text = find(id);
     text.setText(content);
     return text;
