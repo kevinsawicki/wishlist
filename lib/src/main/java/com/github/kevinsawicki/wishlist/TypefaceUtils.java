@@ -15,6 +15,7 @@
  */
 package com.github.kevinsawicki.wishlist;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.view.View;
 import android.widget.TextView;
@@ -37,9 +38,20 @@ public class TypefaceUtils {
    * @return typeface, either cached or loaded from the assets
    */
   public static Typeface getTypeface(final String name, final View view) {
+    return getTypeface(name, view.getContext());
+  }
+
+  /**
+   * Get typeface with name
+   *
+   * @param name
+   * @param context
+   * @return typeface, either cached or loaded from the assets
+   */
+  public static Typeface getTypeface(final String name, final Context context) {
     Typeface typeface = TYPEFACES.get(name);
     if (typeface == null) {
-      typeface = Typeface.createFromAsset(view.getContext().getAssets(), name);
+      typeface = Typeface.createFromAsset(context.getAssets(), name);
       TYPEFACES.put(name, typeface);
     }
     return typeface;
