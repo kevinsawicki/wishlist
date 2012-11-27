@@ -57,7 +57,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Create adapter
-   *
+   * 
    * @param activity
    */
   public MultiTypeAdapter(final Activity activity) {
@@ -66,7 +66,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Create adapter
-   *
+   * 
    * @param context
    */
   public MultiTypeAdapter(final Context context) {
@@ -75,7 +75,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Create adapter
-   *
+   * 
    * @param inflater
    */
   public MultiTypeAdapter(final LayoutInflater inflater) {
@@ -96,7 +96,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Clear all items
-   *
+   * 
    * @return this adapter
    */
   public MultiTypeAdapter clear() {
@@ -108,7 +108,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Add item to adapter registered as the given type
-   *
+   * 
    * @param type
    * @param item
    * @return this adapter
@@ -122,7 +122,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Add items to adapter registered as the given type
-   *
+   * 
    * @param type
    * @param items
    * @return this adapter
@@ -140,7 +140,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Add items to adapter registered as the given type
-   *
+   * 
    * @param type
    * @param items
    * @return this adapter
@@ -157,8 +157,21 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
   }
 
   /**
+   * Remove item at position
+   * 
+   * @param position
+   * @return this adapter
+   */
+  public MultiTypeAdapter removeItem(final int position) {
+    if (position > 0 && position < items.size()
+        && items.remove(position) != null)
+      notifyDataSetChanged();
+    return this;
+  }
+
+  /**
    * Get layout id for type
-   *
+   * 
    * @param type
    * @return layout id
    */
@@ -169,7 +182,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * <p>
    * The index of each id in the returned array should be used when using the
    * helpers to update a specific child view
-   *
+   * 
    * @param type
    * @return array of view ids
    */
@@ -197,7 +210,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Update view for item
-   *
+   * 
    * @param position
    * @param view
    * @param item
@@ -214,7 +227,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
    * <p>
    * Sub-classes may override this method but should call super so that tags are
    * properly set on the given root view.
-   *
+   * 
    * @param type
    * @param view
    * @return view
@@ -225,7 +238,7 @@ public abstract class MultiTypeAdapter extends TypeAdapter {
 
   /**
    * Update view for item
-   *
+   * 
    * @param position
    * @param item
    * @param type
