@@ -103,6 +103,7 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
     options.inJustDecodeBounds = false;
     options.inSampleSize = scale;
     options.inPreferredConfig = ARGB_8888;
+    options.inPurgeable = true;
 
     Bitmap decoded;
     synchronized (BUFFER) {
