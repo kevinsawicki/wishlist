@@ -128,6 +128,16 @@ public class LightDialog extends AlertDialog {
   /**
    * Set positive button
    *
+   * @param listener
+   * @return this dialog
+   */
+  public LightDialog setPositiveButton(OnClickListener listener) {
+    return setPositiveButton(android.R.string.ok, listener);
+  }
+
+  /**
+   * Set negative button
+   *
    * @param text
    * @param listener
    * @return this dialog
@@ -135,5 +145,15 @@ public class LightDialog extends AlertDialog {
   public LightDialog setNegativeButton(int text, OnClickListener listener) {
     setButton(BUTTON_NEGATIVE, getContext().getString(text), listener);
     return this;
+  }
+
+  /**
+   * Set negative button
+   *
+   * @param listener
+   * @return this dialog
+   */
+  public LightDialog setNegativeButton(OnClickListener listener) {
+    return setNegativeButton(android.R.string.cancel, listener);
   }
 }
