@@ -95,10 +95,9 @@ public class DecodeBitmapTask extends AsyncTask<Void, Void, Bitmap> {
 
     int scale = 1;
     if (options.outWidth > maxWidth || options.outHeight > maxHeight)
-      if (options.outWidth > options.outHeight)
-        scale = Math.round((float) options.outHeight / (float) maxHeight);
-      else
-        scale = Math.round((float) options.outWidth / (float) maxWidth);
+      scale = Math.max(
+          Math.round((float) options.outHeight / (float) maxHeight),
+          Math.round((float) options.outWidth / (float) maxWidth));
 
     options.inJustDecodeBounds = false;
     options.inSampleSize = scale;
