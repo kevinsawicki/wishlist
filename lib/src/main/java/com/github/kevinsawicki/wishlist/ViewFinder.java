@@ -132,6 +132,16 @@ public class ViewFinder {
   }
 
   /**
+   * Get text view with id
+   *
+   * @param id
+   * @return text view
+   */
+  public TextView textView(final int id) {
+    return find(id);
+  }
+
+  /**
    * Set text of child view with given id
    *
    * @param id
