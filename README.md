@@ -12,7 +12,7 @@ This library is available from [Maven Central](http://search.maven.org/#search%7
 <dependency>
   <groupId>com.github.kevinsawicki</groupId>
   <artifactId>wishlist</artifactId>
-  <version>0.6</version>
+  <version>0.8</version>
   <type>apklib</type>
 </dependency>
 ```
