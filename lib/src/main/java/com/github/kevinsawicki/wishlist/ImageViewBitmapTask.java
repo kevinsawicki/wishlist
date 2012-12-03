@@ -16,6 +16,7 @@
 package com.github.kevinsawicki.wishlist;
 
 import android.graphics.Bitmap;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 /**
@@ -27,6 +28,11 @@ public class ImageViewBitmapTask extends DecodeBitmapTask {
    * View being updated
    */
   protected final ImageView view;
+
+  /**
+   * Whether or not images are faded in when set
+   */
+  protected boolean fadeIn = true;
 
   /**
    * Create task to set bitmap at path on given image view
@@ -43,11 +49,21 @@ public class ImageViewBitmapTask extends DecodeBitmapTask {
     this.view = view;
   }
 
+  /**
+   * @param fadeIn
+   * @return this task
+   */
+  public ImageViewBitmapTask setFadeIn(final boolean fadeIn) {
+    this.fadeIn = fadeIn;
+    return this;
+  }
+
   @Override
   protected void onPreExecute() {
     super.onPreExecute();
 
     view.setImageDrawable(null);
+    view.clearAnimation();
     view.setTag(this);
   }
 
@@ -59,9 +75,14 @@ public class ImageViewBitmapTask extends DecodeBitmapTask {
       return;
 
     view.setTag(null);
-    if (result != null)
+    if (result != null) {
+      if (fadeIn && view.getAnimation() == null)
+        view.startAnimation(AnimationUtils.loadAnimation(view.getContext(),
+            android.R.anim.fade_in));
       view.setImageBitmap(result);
-    else
+    } else {
       view.setImageDrawable(null);
+      view.clearAnimation();
+    }
   }
 }
