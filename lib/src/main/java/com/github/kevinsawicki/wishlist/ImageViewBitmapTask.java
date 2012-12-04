@@ -63,7 +63,8 @@ public class ImageViewBitmapTask extends DecodeBitmapTask {
     super.onPreExecute();
 
     view.setImageDrawable(null);
-    view.clearAnimation();
+    if (view.getAnimation() != null)
+      view.clearAnimation();
     view.setTag(this);
   }
 
@@ -71,7 +72,7 @@ public class ImageViewBitmapTask extends DecodeBitmapTask {
   protected void onPostExecute(final Bitmap result) {
     super.onPostExecute(result);
 
-    if (!this.equals(view.getTag()))
+    if (!equals(view.getTag()))
       return;
 
     view.setTag(null);
