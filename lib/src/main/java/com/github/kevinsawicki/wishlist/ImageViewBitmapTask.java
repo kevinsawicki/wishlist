@@ -19,6 +19,8 @@ import android.graphics.Bitmap;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Task to decode a bitmap and set it on an {@link ImageView}
  */
@@ -27,7 +29,7 @@ public class ImageViewBitmapTask extends DecodeBitmapTask {
   /**
    * View being updated
    */
-  protected final ImageView view;
+  protected final WeakReference<ImageView> view;
 
   /**
    * Whether or not images are faded in when set
@@ -46,7 +48,7 @@ public class ImageViewBitmapTask extends DecodeBitmapTask {
       final String path, final ImageView view) {
     super(maxWidth, maxHeight, path);
 
-    this.view = view;
+    this.view = new WeakReference<ImageView>(view);
   }
 
   /**
@@ -62,15 +64,32 @@ public class ImageViewBitmapTask extends DecodeBitmapTask {
   protected void onPreExecute() {
     super.onPreExecute();
 
+    ImageView view = getView();
+    if (view == null)
+      return;
+
     view.setImageDrawable(null);
     if (view.getAnimation() != null)
       view.clearAnimation();
     view.setTag(this);
   }
 
+  /**
+   * Get view being updated
+   *
+   * @return view
+   */
+  protected ImageView getView() {
+    return view.get();
+  }
+
   @Override
   protected void onPostExecute(final Bitmap result) {
     super.onPostExecute(result);
+
+    ImageView view = getView();
+    if (view == null)
+      return;
 
     if (!equals(view.getTag()))
       return;
