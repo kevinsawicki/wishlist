@@ -128,6 +128,18 @@ public class LightDialog extends AlertDialog {
   /**
    * Set positive button
    *
+   * @param text
+   * @param listener
+   * @return this dialog
+   */
+  public LightDialog setPositiveButton(CharSequence text, OnClickListener listener) {
+      setButton(BUTTON_POSITIVE, text, listener);
+      return this;
+  }
+
+  /**
+   * Set positive button
+   *
    * @param listener
    * @return this dialog
    */
@@ -146,6 +158,19 @@ public class LightDialog extends AlertDialog {
     setButton(BUTTON_NEGATIVE, getContext().getString(text), listener);
     return this;
   }
+
+  /**
+   * Set negative button
+   *
+   * @param text
+   * @param listener
+   * @return this dialog
+   */
+  public LightDialog setNegativeButton(CharSequence text, OnClickListener listener) {
+      setButton(BUTTON_NEGATIVE, text, listener);
+      return this;
+  }
+
 
   /**
    * Set negative button
