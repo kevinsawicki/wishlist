@@ -84,6 +84,7 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
   /**
    * Get a list of all items
    *
+   * @return list of all items
    */
   protected List<V> getItems() {
     List<? extends Object> objList = Arrays.asList(items);
