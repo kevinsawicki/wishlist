@@ -86,6 +86,7 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
    *
    * @return list of all items
    */
+  @SuppressWarnings("unchecked")
   protected List<V> getItems() {
     List<? extends Object> objList = Arrays.asList(items);
     return (List<V>) objList;
