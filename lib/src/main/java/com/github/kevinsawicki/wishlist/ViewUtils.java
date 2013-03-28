@@ -78,7 +78,7 @@ public class ViewUtils {
      * @param amount The amount of dp's to be added to all four sides of the view hit purposes.
      * @param delegate The view that needs to have its hit rect increased.
      */
-    public void increaseHitRectBy(final int amount, final View delegate) {
+    public static void increaseHitRectBy(final int amount, final View delegate) {
       increaseHitRectBy(amount, amount, amount, amount, delegate);
     }
 
@@ -91,7 +91,7 @@ public class ViewUtils {
      * @param right The amount of dp's to be added to the right for hit purposes.
      * @param delegate The view that needs to have its hit rect increased.
      */
-    public void increaseHitRectBy(final int top, final int left, final int bottom, final int right, final View delegate) {
+    public static void increaseHitRectBy(final int top, final int left, final int bottom, final int right, final View delegate) {
       final View parent = (View) delegate.getParent();
         if(parent != null && delegate.getContext() != null) {
         parent.post(new Runnable() {
@@ -111,7 +111,11 @@ public class ViewUtils {
       }
     }
 
-    public int transformToDensityPixel(int regularPixel, float densityDpi) {
+    public static int transformToDensityPixel(int regularPixel, DisplayMetrics displayMetrics) {
+        return transformToDensityPixel(regularPixel, displayMetrics.densityDpi);
+    }
+
+    public static int transformToDensityPixel(int regularPixel, float densityDpi) {
         return ((int) (regularPixel * densityDpi));
     }
 
