@@ -10,7 +10,7 @@
 
   <groupId>com.github.kevinsawicki</groupId>
   <artifactId>wishlist</artifactId>
-  <version>0.9-SNAPSHOT</version>
+  <version>0.9</version>
   <packaging>apklib</packaging>
   <name>wishlist</name>
   <description>Android utilities</description>
