@@ -11,7 +11,7 @@
   <groupId>com.github.kevinsawicki</groupId>
   <artifactId>wishlist</artifactId>
   <version>0.10-SNAPSHOT</version>
-  <packaging>apklib</packaging>
+  <packaging>jar</packaging>
   <name>wishlist</name>
   <description>Android utilities</description>
   <inceptionYear>2012</inceptionYear>
