@@ -2,3 +2,6 @@ bin/
 target/
 gen/
 tmp/
+
+.idea
+*.iml
