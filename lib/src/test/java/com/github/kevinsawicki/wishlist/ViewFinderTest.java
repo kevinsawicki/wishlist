@@ -23,13 +23,12 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.FrameLayout;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 /**
  * Unit tests of {@link ViewFinder}
@@ -80,9 +79,9 @@ public class ViewFinderTest {
         run.incrementAndGet();
       }
     }, android.R.id.button1, android.R.id.button2);
-    checkbox1.performClick();
+    checkbox1.toggle();
     assertEquals(1, run.get());
-    checkbox2.performClick();
+    checkbox2.toggle();
     assertEquals(2, run.get());
   }
 

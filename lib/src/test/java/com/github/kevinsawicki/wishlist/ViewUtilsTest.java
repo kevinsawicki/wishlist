@@ -22,10 +22,9 @@ import static org.junit.Assert.assertEquals;
 import android.app.Activity;
 import android.view.View;
 
-import com.xtremelabs.robolectric.RobolectricTestRunner;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
 
 /**
  * Unit tests of {@link ViewUtils}
