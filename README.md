@@ -1,4 +1,4 @@
-# wishlist [![Build Status](https://travis-ci.org/kevinsawicki/wishlist.png)](https://travis-ci.org/kevinsawicki/wishlist)
+# wishlist [![Build Status](https://travis-ci.org/kevinsawicki/wishlist.svg)](https://travis-ci.org/kevinsawicki/wishlist)
 
 Library of helpers and utilities that I wish were included in the Android
 SDK but aren't.
