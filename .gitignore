@@ -2,3 +2,7 @@ bin/
 target/
 gen/
 tmp/
+.idea
+*.iml
+*.ipr
+*.iws
