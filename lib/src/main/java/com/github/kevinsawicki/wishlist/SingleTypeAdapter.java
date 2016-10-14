@@ -80,6 +80,16 @@ public abstract class SingleTypeAdapter<V> extends TypeAdapter {
       childIds = new int[0];
     children = childIds;
   }
+  
+  
+   /**
+    * Get a list of all items
+    * 
+    */
+    protected List<V> getItems() {
+        List<? extends Object> objList = Arrays.asList(items);
+        return (List<V>)objList;
+    }
 
   /**
    * Get a list of all items
